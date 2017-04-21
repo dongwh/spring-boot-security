@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drpeng.dao.SecFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.drpeng.domain.SecFunction" >
+    <id column="FUNC_ID" property="funcId" jdbcType="INTEGER" />
+    <result column="ENT_CLASS_ID" property="entClassId" jdbcType="INTEGER" />
+    <result column="FUNC_CODE" property="funcCode" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="FUN_SEQ" property="funSeq" jdbcType="INTEGER" />
+    <result column="VIEWNAME" property="viewname" jdbcType="VARCHAR" />
+    <result column="DLL_PATHDLL" property="dllPathdll" jdbcType="VARCHAR" />
+    <result column="FUNC_IMG" property="funcImg" jdbcType="VARCHAR" />
+    <result column="FUNC_ARG" property="funcArg" jdbcType="VARCHAR" />
+    <result column="FUNC_TYPE" property="funcType" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="DONE_CODE" property="doneCode" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="DONE_DATE" property="doneDate" jdbcType="TIMESTAMP" />
+    <result column="VALID_DATE" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="TIMESTAMP" />
+    <result column="OP_ID" property="opId" jdbcType="INTEGER" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FUNC_ID, ENT_CLASS_ID, FUNC_CODE, NAME, NOTES, PARENT_ID, FUN_SEQ, VIEWNAME, DLL_PATHDLL, 
+    FUNC_IMG, FUNC_ARG, FUNC_TYPE, STATE, DONE_CODE, CREATE_DATE, DONE_DATE, VALID_DATE, 
+    EXPIRE_DATE, OP_ID, ORG_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.drpeng.domain.SecFunctionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sec_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sec_function
+    where FUNC_ID = #{funcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sec_function
+    where FUNC_ID = #{funcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drpeng.domain.SecFunction" >
+    insert into sec_function (FUNC_ID, ENT_CLASS_ID, FUNC_CODE, 
+      NAME, NOTES, PARENT_ID, 
+      FUN_SEQ, VIEWNAME, DLL_PATHDLL, 
+      FUNC_IMG, FUNC_ARG, FUNC_TYPE, 
+      STATE, DONE_CODE, CREATE_DATE, 
+      DONE_DATE, VALID_DATE, EXPIRE_DATE, 
+      OP_ID, ORG_ID)
+    values (#{funcId,jdbcType=INTEGER}, #{entClassId,jdbcType=INTEGER}, #{funcCode,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{funSeq,jdbcType=INTEGER}, #{viewname,jdbcType=VARCHAR}, #{dllPathdll,jdbcType=VARCHAR}, 
+      #{funcImg,jdbcType=VARCHAR}, #{funcArg,jdbcType=VARCHAR}, #{funcType,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{doneCode,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{doneDate,jdbcType=TIMESTAMP}, #{validDate,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP}, 
+      #{opId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drpeng.domain.SecFunction" >
+    insert into sec_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="funcId != null" >
+        FUNC_ID,
+      </if>
+      <if test="entClassId != null" >
+        ENT_CLASS_ID,
+      </if>
+      <if test="funcCode != null" >
+        FUNC_CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="funSeq != null" >
+        FUN_SEQ,
+      </if>
+      <if test="viewname != null" >
+        VIEWNAME,
+      </if>
+      <if test="dllPathdll != null" >
+        DLL_PATHDLL,
+      </if>
+      <if test="funcImg != null" >
+        FUNC_IMG,
+      </if>
+      <if test="funcArg != null" >
+        FUNC_ARG,
+      </if>
+      <if test="funcType != null" >
+        FUNC_TYPE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="doneCode != null" >
+        DONE_CODE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE,
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE,
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE,
+      </if>
+      <if test="opId != null" >
+        OP_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="funcId != null" >
+        #{funcId,jdbcType=INTEGER},
+      </if>
+      <if test="entClassId != null" >
+        #{entClassId,jdbcType=INTEGER},
+      </if>
+      <if test="funcCode != null" >
+        #{funcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="funSeq != null" >
+        #{funSeq,jdbcType=INTEGER},
+      </if>
+      <if test="viewname != null" >
+        #{viewname,jdbcType=VARCHAR},
+      </if>
+      <if test="dllPathdll != null" >
+        #{dllPathdll,jdbcType=VARCHAR},
+      </if>
+      <if test="funcImg != null" >
+        #{funcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="funcArg != null" >
+        #{funcArg,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null" >
+        #{funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="doneCode != null" >
+        #{doneCode,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDate != null" >
+        #{doneDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opId != null" >
+        #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.drpeng.domain.SecFunctionExample" resultType="java.lang.Integer" >
+    select count(*) from sec_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drpeng.domain.SecFunction" >
+    update sec_function
+    <set >
+      <if test="entClassId != null" >
+        ENT_CLASS_ID = #{entClassId,jdbcType=INTEGER},
+      </if>
+      <if test="funcCode != null" >
+        FUNC_CODE = #{funcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="funSeq != null" >
+        FUN_SEQ = #{funSeq,jdbcType=INTEGER},
+      </if>
+      <if test="viewname != null" >
+        VIEWNAME = #{viewname,jdbcType=VARCHAR},
+      </if>
+      <if test="dllPathdll != null" >
+        DLL_PATHDLL = #{dllPathdll,jdbcType=VARCHAR},
+      </if>
+      <if test="funcImg != null" >
+        FUNC_IMG = #{funcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="funcArg != null" >
+        FUNC_ARG = #{funcArg,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null" >
+        FUNC_TYPE = #{funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="doneCode != null" >
+        DONE_CODE = #{doneCode,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE = #{doneDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE = #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opId != null" >
+        OP_ID = #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where FUNC_ID = #{funcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drpeng.domain.SecFunction" >
+    update sec_function
+    set ENT_CLASS_ID = #{entClassId,jdbcType=INTEGER},
+      FUNC_CODE = #{funcCode,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=INTEGER},
+      FUN_SEQ = #{funSeq,jdbcType=INTEGER},
+      VIEWNAME = #{viewname,jdbcType=VARCHAR},
+      DLL_PATHDLL = #{dllPathdll,jdbcType=VARCHAR},
+      FUNC_IMG = #{funcImg,jdbcType=VARCHAR},
+      FUNC_ARG = #{funcArg,jdbcType=VARCHAR},
+      FUNC_TYPE = #{funcType,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      DONE_CODE = #{doneCode,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      DONE_DATE = #{doneDate,jdbcType=TIMESTAMP},
+      VALID_DATE = #{validDate,jdbcType=TIMESTAMP},
+      EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      OP_ID = #{opId,jdbcType=INTEGER},
+      ORG_ID = #{orgId,jdbcType=INTEGER}
+    where FUNC_ID = #{funcId,jdbcType=INTEGER}
+  </update>
+</mapper>

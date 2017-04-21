@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drpeng.dao.SecOperatorMapper" >
+  <resultMap id="BaseResultMap" type="com.drpeng.domain.SecOperator" >
+    <id column="OPERATOR_ID" property="operatorId" jdbcType="INTEGER" />
+    <result column="STAFF_ID" property="staffId" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="SECURITY_ID" property="securityId" jdbcType="INTEGER" />
+    <result column="RECENT_PASSWORD" property="recentPassword" jdbcType="VARCHAR" />
+    <result column="RECENT_PASS_TIMES" property="recentPassTimes" jdbcType="INTEGER" />
+    <result column="ALLOW_CHANGE_PASSWORD" property="allowChangePassword" jdbcType="VARCHAR" />
+    <result column="ACCT_EFFECT_DATE" property="acctEffectDate" jdbcType="TIMESTAMP" />
+    <result column="ACCT_EXPIRE_DATE" property="acctExpireDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_LOGIN_LOG_ID" property="lastLoginLogId" jdbcType="INTEGER" />
+    <result column="TRY_TIMES" property="tryTimes" jdbcType="INTEGER" />
+    <result column="LOCK_FLAG" property="lockFlag" jdbcType="VARCHAR" />
+    <result column="LOGIN_CHANNEL" property="loginChannel" jdbcType="DECIMAL" />
+    <result column="PASSWORD_VALID_DATE" property="passwordValidDate" jdbcType="TIMESTAMP" />
+    <result column="CHG_PASSWD_ALARM_DAYS" property="chgPasswdAlarmDays" jdbcType="INTEGER" />
+    <result column="IPMAC_FLAG" property="ipmacFlag" jdbcType="VARCHAR" />
+    <result column="IS_VPN_LOGIN_FLAG" property="isVpnLoginFlag" jdbcType="DECIMAL" />
+    <result column="CHG_PASSWD_FLAG" property="chgPasswdFlag" jdbcType="INTEGER" />
+    <result column="IS_LOGIN" property="isLogin" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="CANCEL_DAYS" property="cancelDays" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="DONE_CODE" property="doneCode" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="DONE_DATE" property="doneDate" jdbcType="TIMESTAMP" />
+    <result column="VALID_DATE" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="TIMESTAMP" />
+    <result column="OP_ID" property="opId" jdbcType="INTEGER" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OPERATOR_ID, STAFF_ID, CODE, PASSWORD, SECURITY_ID, RECENT_PASSWORD, RECENT_PASS_TIMES, 
+    ALLOW_CHANGE_PASSWORD, ACCT_EFFECT_DATE, ACCT_EXPIRE_DATE, LAST_LOGIN_LOG_ID, TRY_TIMES, 
+    LOCK_FLAG, LOGIN_CHANNEL, PASSWORD_VALID_DATE, CHG_PASSWD_ALARM_DAYS, IPMAC_FLAG, 
+    IS_VPN_LOGIN_FLAG, CHG_PASSWD_FLAG, IS_LOGIN, NOTES, CANCEL_DAYS, STATE, DONE_CODE, 
+    CREATE_DATE, DONE_DATE, VALID_DATE, EXPIRE_DATE, OP_ID, ORG_ID, IS_ADMIN
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.drpeng.domain.SecOperatorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sec_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sec_operator
+    where OPERATOR_ID = #{operatorId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sec_operator
+    where CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sec_operator
+    where OPERATOR_ID = #{operatorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drpeng.domain.SecOperator" >
+    insert into sec_operator (OPERATOR_ID, STAFF_ID, CODE, 
+      PASSWORD, SECURITY_ID, RECENT_PASSWORD, 
+      RECENT_PASS_TIMES, ALLOW_CHANGE_PASSWORD, ACCT_EFFECT_DATE, 
+      ACCT_EXPIRE_DATE, LAST_LOGIN_LOG_ID, TRY_TIMES, 
+      LOCK_FLAG, LOGIN_CHANNEL, PASSWORD_VALID_DATE, 
+      CHG_PASSWD_ALARM_DAYS, IPMAC_FLAG, IS_VPN_LOGIN_FLAG, 
+      CHG_PASSWD_FLAG, IS_LOGIN, NOTES, 
+      CANCEL_DAYS, STATE, DONE_CODE, 
+      CREATE_DATE, DONE_DATE, VALID_DATE, 
+      EXPIRE_DATE, OP_ID, ORG_ID, 
+      IS_ADMIN)
+    values (#{operatorId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{securityId,jdbcType=INTEGER}, #{recentPassword,jdbcType=VARCHAR}, 
+      #{recentPassTimes,jdbcType=INTEGER}, #{allowChangePassword,jdbcType=VARCHAR}, #{acctEffectDate,jdbcType=TIMESTAMP}, 
+      #{acctExpireDate,jdbcType=TIMESTAMP}, #{lastLoginLogId,jdbcType=INTEGER}, #{tryTimes,jdbcType=INTEGER}, 
+      #{lockFlag,jdbcType=VARCHAR}, #{loginChannel,jdbcType=DECIMAL}, #{passwordValidDate,jdbcType=TIMESTAMP}, 
+      #{chgPasswdAlarmDays,jdbcType=INTEGER}, #{ipmacFlag,jdbcType=VARCHAR}, #{isVpnLoginFlag,jdbcType=DECIMAL}, 
+      #{chgPasswdFlag,jdbcType=INTEGER}, #{isLogin,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{cancelDays,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{doneCode,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{doneDate,jdbcType=TIMESTAMP}, #{validDate,jdbcType=TIMESTAMP}, 
+      #{expireDate,jdbcType=TIMESTAMP}, #{opId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
+      #{isAdmin,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drpeng.domain.SecOperator" >
+    insert into sec_operator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operatorId != null" >
+        OPERATOR_ID,
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="securityId != null" >
+        SECURITY_ID,
+      </if>
+      <if test="recentPassword != null" >
+        RECENT_PASSWORD,
+      </if>
+      <if test="recentPassTimes != null" >
+        RECENT_PASS_TIMES,
+      </if>
+      <if test="allowChangePassword != null" >
+        ALLOW_CHANGE_PASSWORD,
+      </if>
+      <if test="acctEffectDate != null" >
+        ACCT_EFFECT_DATE,
+      </if>
+      <if test="acctExpireDate != null" >
+        ACCT_EXPIRE_DATE,
+      </if>
+      <if test="lastLoginLogId != null" >
+        LAST_LOGIN_LOG_ID,
+      </if>
+      <if test="tryTimes != null" >
+        TRY_TIMES,
+      </if>
+      <if test="lockFlag != null" >
+        LOCK_FLAG,
+      </if>
+      <if test="loginChannel != null" >
+        LOGIN_CHANNEL,
+      </if>
+      <if test="passwordValidDate != null" >
+        PASSWORD_VALID_DATE,
+      </if>
+      <if test="chgPasswdAlarmDays != null" >
+        CHG_PASSWD_ALARM_DAYS,
+      </if>
+      <if test="ipmacFlag != null" >
+        IPMAC_FLAG,
+      </if>
+      <if test="isVpnLoginFlag != null" >
+        IS_VPN_LOGIN_FLAG,
+      </if>
+      <if test="chgPasswdFlag != null" >
+        CHG_PASSWD_FLAG,
+      </if>
+      <if test="isLogin != null" >
+        IS_LOGIN,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="cancelDays != null" >
+        CANCEL_DAYS,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="doneCode != null" >
+        DONE_CODE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE,
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE,
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE,
+      </if>
+      <if test="opId != null" >
+        OP_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="securityId != null" >
+        #{securityId,jdbcType=INTEGER},
+      </if>
+      <if test="recentPassword != null" >
+        #{recentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="recentPassTimes != null" >
+        #{recentPassTimes,jdbcType=INTEGER},
+      </if>
+      <if test="allowChangePassword != null" >
+        #{allowChangePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="acctEffectDate != null" >
+        #{acctEffectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acctExpireDate != null" >
+        #{acctExpireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginLogId != null" >
+        #{lastLoginLogId,jdbcType=INTEGER},
+      </if>
+      <if test="tryTimes != null" >
+        #{tryTimes,jdbcType=INTEGER},
+      </if>
+      <if test="lockFlag != null" >
+        #{lockFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="loginChannel != null" >
+        #{loginChannel,jdbcType=DECIMAL},
+      </if>
+      <if test="passwordValidDate != null" >
+        #{passwordValidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgPasswdAlarmDays != null" >
+        #{chgPasswdAlarmDays,jdbcType=INTEGER},
+      </if>
+      <if test="ipmacFlag != null" >
+        #{ipmacFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isVpnLoginFlag != null" >
+        #{isVpnLoginFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="chgPasswdFlag != null" >
+        #{chgPasswdFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isLogin != null" >
+        #{isLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelDays != null" >
+        #{cancelDays,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="doneCode != null" >
+        #{doneCode,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDate != null" >
+        #{doneDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opId != null" >
+        #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.drpeng.domain.SecOperatorExample" resultType="java.lang.Integer" >
+    select count(*) from sec_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drpeng.domain.SecOperator" >
+    update sec_operator
+    <set >
+      <if test="staffId != null" >
+        STAFF_ID = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="securityId != null" >
+        SECURITY_ID = #{securityId,jdbcType=INTEGER},
+      </if>
+      <if test="recentPassword != null" >
+        RECENT_PASSWORD = #{recentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="recentPassTimes != null" >
+        RECENT_PASS_TIMES = #{recentPassTimes,jdbcType=INTEGER},
+      </if>
+      <if test="allowChangePassword != null" >
+        ALLOW_CHANGE_PASSWORD = #{allowChangePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="acctEffectDate != null" >
+        ACCT_EFFECT_DATE = #{acctEffectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acctExpireDate != null" >
+        ACCT_EXPIRE_DATE = #{acctExpireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginLogId != null" >
+        LAST_LOGIN_LOG_ID = #{lastLoginLogId,jdbcType=INTEGER},
+      </if>
+      <if test="tryTimes != null" >
+        TRY_TIMES = #{tryTimes,jdbcType=INTEGER},
+      </if>
+      <if test="lockFlag != null" >
+        LOCK_FLAG = #{lockFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="loginChannel != null" >
+        LOGIN_CHANNEL = #{loginChannel,jdbcType=DECIMAL},
+      </if>
+      <if test="passwordValidDate != null" >
+        PASSWORD_VALID_DATE = #{passwordValidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgPasswdAlarmDays != null" >
+        CHG_PASSWD_ALARM_DAYS = #{chgPasswdAlarmDays,jdbcType=INTEGER},
+      </if>
+      <if test="ipmacFlag != null" >
+        IPMAC_FLAG = #{ipmacFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isVpnLoginFlag != null" >
+        IS_VPN_LOGIN_FLAG = #{isVpnLoginFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="chgPasswdFlag != null" >
+        CHG_PASSWD_FLAG = #{chgPasswdFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isLogin != null" >
+        IS_LOGIN = #{isLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelDays != null" >
+        CANCEL_DAYS = #{cancelDays,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="doneCode != null" >
+        DONE_CODE = #{doneCode,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE = #{doneDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE = #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opId != null" >
+        OP_ID = #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN = #{isAdmin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPERATOR_ID = #{operatorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drpeng.domain.SecOperator" >
+    update sec_operator
+    set STAFF_ID = #{staffId,jdbcType=INTEGER},
+      CODE = #{code,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SECURITY_ID = #{securityId,jdbcType=INTEGER},
+      RECENT_PASSWORD = #{recentPassword,jdbcType=VARCHAR},
+      RECENT_PASS_TIMES = #{recentPassTimes,jdbcType=INTEGER},
+      ALLOW_CHANGE_PASSWORD = #{allowChangePassword,jdbcType=VARCHAR},
+      ACCT_EFFECT_DATE = #{acctEffectDate,jdbcType=TIMESTAMP},
+      ACCT_EXPIRE_DATE = #{acctExpireDate,jdbcType=TIMESTAMP},
+      LAST_LOGIN_LOG_ID = #{lastLoginLogId,jdbcType=INTEGER},
+      TRY_TIMES = #{tryTimes,jdbcType=INTEGER},
+      LOCK_FLAG = #{lockFlag,jdbcType=VARCHAR},
+      LOGIN_CHANNEL = #{loginChannel,jdbcType=DECIMAL},
+      PASSWORD_VALID_DATE = #{passwordValidDate,jdbcType=TIMESTAMP},
+      CHG_PASSWD_ALARM_DAYS = #{chgPasswdAlarmDays,jdbcType=INTEGER},
+      IPMAC_FLAG = #{ipmacFlag,jdbcType=VARCHAR},
+      IS_VPN_LOGIN_FLAG = #{isVpnLoginFlag,jdbcType=DECIMAL},
+      CHG_PASSWD_FLAG = #{chgPasswdFlag,jdbcType=INTEGER},
+      IS_LOGIN = #{isLogin,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      CANCEL_DAYS = #{cancelDays,jdbcType=INTEGER},
+      STATE = #{state,jdbcType=INTEGER},
+      DONE_CODE = #{doneCode,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      DONE_DATE = #{doneDate,jdbcType=TIMESTAMP},
+      VALID_DATE = #{validDate,jdbcType=TIMESTAMP},
+      EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      OP_ID = #{opId,jdbcType=INTEGER},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      IS_ADMIN = #{isAdmin,jdbcType=VARCHAR}
+    where OPERATOR_ID = #{operatorId,jdbcType=INTEGER}
+  </update>
+</mapper>

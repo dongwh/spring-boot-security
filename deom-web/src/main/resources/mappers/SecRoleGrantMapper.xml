@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.drpeng.dao.SecRoleGrantMapper" >
+  <resultMap id="BaseResultMap" type="com.drpeng.domain.SecRoleGrant" >
+    <id column="ROLE_GRANT_ID" property="roleGrantId" jdbcType="INTEGER" />
+    <result column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="ENT_ID" property="entId" jdbcType="INTEGER" />
+    <result column="ENT_TYPE" property="entType" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="DONE_CODE" property="doneCode" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="DONE_DATE" property="doneDate" jdbcType="TIMESTAMP" />
+    <result column="VALID_DATE" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="TIMESTAMP" />
+    <result column="OP_ID" property="opId" jdbcType="INTEGER" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ROLE_GRANT_ID, ROLE_ID, ENT_ID, ENT_TYPE, NOTES, STATE, DONE_CODE, CREATE_DATE, DONE_DATE, 
+    VALID_DATE, EXPIRE_DATE, OP_ID, ORG_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.drpeng.domain.SecRoleGrantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sec_role_grant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sec_role_grant
+    where ROLE_GRANT_ID = #{roleGrantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sec_role_grant
+    where ROLE_GRANT_ID = #{roleGrantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.drpeng.domain.SecRoleGrant" >
+    insert into sec_role_grant (ROLE_GRANT_ID, ROLE_ID, ENT_ID, 
+      ENT_TYPE, NOTES, STATE, 
+      DONE_CODE, CREATE_DATE, DONE_DATE, 
+      VALID_DATE, EXPIRE_DATE, OP_ID, 
+      ORG_ID)
+    values (#{roleGrantId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{entId,jdbcType=INTEGER}, 
+      #{entType,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{doneCode,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{doneDate,jdbcType=TIMESTAMP}, 
+      #{validDate,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP}, #{opId,jdbcType=INTEGER}, 
+      #{orgId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.drpeng.domain.SecRoleGrant" >
+    insert into sec_role_grant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleGrantId != null" >
+        ROLE_GRANT_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="entId != null" >
+        ENT_ID,
+      </if>
+      <if test="entType != null" >
+        ENT_TYPE,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="doneCode != null" >
+        DONE_CODE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE,
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE,
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE,
+      </if>
+      <if test="opId != null" >
+        OP_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleGrantId != null" >
+        #{roleGrantId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="entId != null" >
+        #{entId,jdbcType=INTEGER},
+      </if>
+      <if test="entType != null" >
+        #{entType,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="doneCode != null" >
+        #{doneCode,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDate != null" >
+        #{doneDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opId != null" >
+        #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.drpeng.domain.SecRoleGrantExample" resultType="java.lang.Integer" >
+    select count(*) from sec_role_grant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.drpeng.domain.SecRoleGrant" >
+    update sec_role_grant
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="entId != null" >
+        ENT_ID = #{entId,jdbcType=INTEGER},
+      </if>
+      <if test="entType != null" >
+        ENT_TYPE = #{entType,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="doneCode != null" >
+        DONE_CODE = #{doneCode,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneDate != null" >
+        DONE_DATE = #{doneDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE = #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opId != null" >
+        OP_ID = #{opId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ROLE_GRANT_ID = #{roleGrantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.drpeng.domain.SecRoleGrant" >
+    update sec_role_grant
+    set ROLE_ID = #{roleId,jdbcType=INTEGER},
+      ENT_ID = #{entId,jdbcType=INTEGER},
+      ENT_TYPE = #{entType,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      DONE_CODE = #{doneCode,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      DONE_DATE = #{doneDate,jdbcType=TIMESTAMP},
+      VALID_DATE = #{validDate,jdbcType=TIMESTAMP},
+      EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      OP_ID = #{opId,jdbcType=INTEGER},
+      ORG_ID = #{orgId,jdbcType=INTEGER}
+    where ROLE_GRANT_ID = #{roleGrantId,jdbcType=INTEGER}
+  </update>
+</mapper>
